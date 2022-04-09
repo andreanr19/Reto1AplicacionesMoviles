@@ -2,6 +2,7 @@ package edu.co.icesi.reto1aplicacionesmoviles.fragments
 
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -26,6 +27,7 @@ import edu.co.icesi.reto1aplicacionesmoviles.Model.Post
 import edu.co.icesi.reto1aplicacionesmoviles.Reto1Application
 import edu.co.icesi.reto1aplicacionesmoviles.databinding.FragmentPostBinding
 import java.io.File
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -34,11 +36,10 @@ class PostFragment : Fragment() {
     private var _binding:FragmentPostBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var captionET : EditText
+    private var rutaImagen : String? =null
     private var file : File? = null
     //Listener
     var listener : OnNewPostListener? =null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,15 +50,27 @@ class PostFragment : Fragment() {
         val view = binding.root
 
         binding.postBtn.setOnClickListener {
-            val text = binding.captionET.text.toString()
+            val caption = binding.captionET.text.toString()
+            var nameuser : String= ""
+            if(Reto1Application.prefs.getIsbeta()){
+                nameuser= "Beta"
+            }else{
+                nameuser = "Alfa"
+            }
+
 
             //publicación del dato
             listener?.let {
-                val dateText = Date()
+                val dateText = Calendar.getInstance()
 
-                var post = Post("beta","", text, dateText , "cali")
-                Reto1Application.prefs.savePosts(post)
-                it.onNewPost(post)
+                if(rutaImagen!=null){
+                    var post = Post(nameuser,rutaImagen!!, caption, dateText, "cali")
+                    Reto1Application.prefs.savePosts(post)
+                    it.onNewPost(post)
+                }else{
+                    Toast.makeText(requireContext(), "Upload an image", Toast.LENGTH_SHORT).show()
+                }
+
             }
         }
         requestPermissions(arrayOf(Manifest.permission.CAMERA,
@@ -91,8 +104,9 @@ class PostFragment : Fragment() {
 
         //Thumbnail
         // val bitmap =  result.data?.extras?.get("data") as Bitmap
-        // binding.image.setImageBitmap(bitmap)
+         //binding.image.setImageBitmap(bitmap)
         if(result.resultCode == RESULT_OK){
+            rutaImagen= file?.path
             val bitmap = BitmapFactory.decodeFile(file?.path)
             val thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.width/4, bitmap.height/4, true)
 

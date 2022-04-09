@@ -9,7 +9,7 @@ data class Post(
     var username: String,
     var image: String,
     var caption: String,
-    var date : Date,
+    var date : Calendar,
     var city : String
 
 
