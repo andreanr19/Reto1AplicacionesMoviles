@@ -68,6 +68,8 @@ class AccountSettingsActivity : AppCompatActivity() {
             user!!.username = binding.usernameProfilefragment.text.toString()
             user!!.bio = binding.bioProfilefragment.text.toString()
 
+            prefs.updateUser(user!!)
+
         }else{
             Toast.makeText(this, "Username and name are required", Toast.LENGTH_LONG).show()
         }

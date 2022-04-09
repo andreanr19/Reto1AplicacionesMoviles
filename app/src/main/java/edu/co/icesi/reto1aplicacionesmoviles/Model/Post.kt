@@ -6,7 +6,8 @@ import java.util.*
 
 data class Post(
 
-    var username: String,
+
+    var userId: String,
     var image: String,
     var caption: String,
     var date : Calendar,

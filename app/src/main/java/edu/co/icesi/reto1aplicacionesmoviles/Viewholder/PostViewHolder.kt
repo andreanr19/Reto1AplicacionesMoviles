@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import edu.co.icesi.reto1aplicacionesmoviles.Model.Post
 import edu.co.icesi.reto1aplicacionesmoviles.R
+import edu.co.icesi.reto1aplicacionesmoviles.Reto1Application
 import java.text.SimpleDateFormat
 import java.time.Month
 import java.time.format.TextStyle
@@ -74,7 +75,7 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val bitmap = BitmapFactory.decodeFile(post.image)
 
 
-        postTextRow.text = post.username
+        postTextRow.text = Reto1Application.prefs.getUserById(post.userId).name
         captionPostET.text = post.caption
         cityPostET.text = post.city
         imagePost.setImageBitmap(bitmap)
