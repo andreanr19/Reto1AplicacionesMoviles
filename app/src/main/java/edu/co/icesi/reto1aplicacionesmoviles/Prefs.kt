@@ -2,6 +2,7 @@ package edu.co.icesi.reto1aplicacionesmoviles
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.google.gson.Gson
 import edu.co.icesi.reto1aplicacionesmoviles.Model.Post
 import java.lang.Exception
@@ -116,6 +117,7 @@ class Prefs(val context: Context) {
     fun getPosts() : MutableList<Post>{
         var postList = mutableListOf<Post>()
         val posts = storage.getString(SHARED_POSTS,"")
+        Log.e(">>>", posts!!)
 
         if(posts!!.isEmpty()) return postList
         postList = gson.fromJson(posts, Array<Post>::class.java).toMutableList()

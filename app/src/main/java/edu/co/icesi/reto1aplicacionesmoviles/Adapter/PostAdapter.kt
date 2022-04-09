@@ -22,7 +22,6 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder>() {
         return postViewHolder
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val postn = posts[position]
        holder.bind(postn)

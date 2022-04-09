@@ -1,7 +1,9 @@
 package edu.co.icesi.reto1aplicacionesmoviles.Viewholder
 
+import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,7 +21,7 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var postTextRow : TextView = itemView.findViewById(R.id.postTextRow)
     var captionPostET: TextView = itemView.findViewById(R.id.captionPostET)
     var datePostET: TextView = itemView.findViewById(R.id.datePostET)
-    var cityPostET: TextView = itemView.findViewById(R.id.captionPostET)
+    var cityPostET: TextView = itemView.findViewById(R.id.cityPostET)
     var imagePost : ImageView = itemView.findViewById(R.id.imagePost)
     var profilePhotoPost : ImageView = itemView.findViewById(R.id.profilePhotoPost)
 
@@ -29,19 +31,24 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("NewApi")
     fun bind(post : Post){
 
-        val monthNumber = Month.of(post.date.get(Calendar.MONTH)+1)
-        val day = post.date.get(Calendar.DAY_OF_MONTH).toString()
-        val monthName = monthNumber.getDisplayName(TextStyle.FULL, Locale.getDefault())
-        val year = post.date.get(Calendar.YEAR).toString()
+        var calendar : Calendar = Calendar.getInstance()
+        calendar.time= post.date
+        val monthNumber = calendar.get(Calendar.MONTH+1).toString()
+        Log.e(">>>", monthNumber)
+        val day = calendar.get(Calendar.DAY_OF_WEEK).toString()
+        Log.e(">>>", day)
+        val year =calendar.get(Calendar.YEAR).toString()
+        Log.e(">>>", year)
+
         val bitmap = BitmapFactory.decodeFile(post.image)
 
 
         postTextRow.text = post.username
         captionPostET.text = post.caption
-        datePostET.text = day + " " + monthName +" " + year
+        datePostET.text = day + " " + monthNumber +" " + year
         cityPostET.text = post.city
         imagePost.setImageBitmap(bitmap)
         //profilePhotoPost.setImageBitmap(BitmapFactory.decodeFile())
