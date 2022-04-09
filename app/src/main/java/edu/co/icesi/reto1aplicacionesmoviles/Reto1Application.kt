@@ -10,5 +10,6 @@ class Reto1Application:Application() {
     override fun onCreate() {
         super.onCreate()
         prefs = Prefs(applicationContext)
+        prefs.createUser()
     }
 }

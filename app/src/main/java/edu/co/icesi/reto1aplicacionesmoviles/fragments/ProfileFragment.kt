@@ -18,6 +18,7 @@ class ProfileFragment : Fragment() {
     private var _binding:FragmentProfileBinding? =null
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,15 +38,10 @@ class ProfileFragment : Fragment() {
     }
 
     fun checkDetails(){
-        if(prefs.getIsbeta()){
-            binding.fullNameProfilefragment.setText(prefs.getNameBeta())
-            binding.bioProfilefragment.setText(prefs.getBioBeta())
 
-        }else{
-            binding.fullNameProfilefragment.setText(prefs.getNameAlfa())
-            binding.bioProfilefragment.setText(prefs.getBioAlfa())
+            binding.fullNameProfilefragment.setText(prefs.getLoggedUser()?.username)
+            binding.bioProfilefragment.setText(prefs.getLoggedUser()?.bio)
 
-        }
     }
 
     override fun onPause() {

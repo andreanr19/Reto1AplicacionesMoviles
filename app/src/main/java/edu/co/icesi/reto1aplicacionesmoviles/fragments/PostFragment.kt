@@ -66,17 +66,15 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.postBtn.setOnClickListener {
 
             val caption = binding.captionET.text.toString()
-            var nameuser : String= ""
-            if(Reto1Application.prefs.getIsbeta()){
-                nameuser= "Beta"
-            }else{
-                nameuser = "Alfa"
-            }
+            var user = Reto1Application.prefs.getLoggedUser()
+            var nameuser = user?.username
+
+
 
             val dateText = Calendar.getInstance()
 
             if(rutaImagen!=null){
-                var post = Post(nameuser,rutaImagen!!, caption, dateText, selectedCity)
+                var post = Post(nameuser!!,rutaImagen!!, caption, dateText, selectedCity)
                 Toast.makeText(requireContext(), "The photo was successfully posted!", Toast.LENGTH_SHORT).show()
                 Reto1Application.prefs.savePosts(post)
                 //it.onNewPost(post)

@@ -58,23 +58,18 @@ class SignInActivity : AppCompatActivity() {
             if((email =="alfa@gmail.com" || email == "beta@gmail.com") && password == "aplicacionesmoviles"){
                 if(email=="alfa@gmail.com"){
 
-                    prefs.saveUsernameAlfa(email)
-                    prefs.saveNameAlfa("Alfa")
-                    prefs.saveBioAlfa("Hello, I'm alfa")
-                    prefs.savePassword(password)
+
                     prefs.saveRemember(checked)
-                    prefs.saveIsbeta(false)
+                    prefs.LogUser("ALFA")
                     Toast.makeText(this, "Information saved", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, SecondActivity::class.java )
                     startActivity(intent)
                     finish()
                 }else{
-                    prefs.saveUsernameBeta(email)
-                    prefs.saveNameBeta("Beta")
-                    prefs.saveBioBeta("Hello, I'm beta")
-                    prefs.savePassword(password)
+
+                    prefs.LogUser("BETA")
                     prefs.saveRemember(checked)
-                    prefs.saveIsbeta(true)
+
 
                     Toast.makeText(this, "Information saved", Toast.LENGTH_LONG).show()
 
