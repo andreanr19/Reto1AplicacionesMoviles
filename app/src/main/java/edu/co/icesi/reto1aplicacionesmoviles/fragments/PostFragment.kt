@@ -25,6 +25,7 @@ import edu.co.icesi.reto1aplicacionesmoviles.Model.Post
 import edu.co.icesi.reto1aplicacionesmoviles.Reto1Application
 import edu.co.icesi.reto1aplicacionesmoviles.databinding.FragmentPostBinding
 import java.io.File
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -36,6 +37,9 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var rutaImagen : String? =null
     private var file : File? = null
+    private var timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+    private var FILE = "picture_" + timestamp
+
 
     private lateinit var arrayCities : ArrayAdapter<String>
     private lateinit var selectedCity :String
@@ -94,7 +98,7 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         binding.cameraBtn.setOnClickListener{
             val intent =Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            file = File("${context?.getExternalFilesDir(null)}/photo.png")
+            file = File("${context?.getExternalFilesDir(null)}/ $FILE")
             Log.e(">>>", file?.path.toString())
             val uri = FileProvider.getUriForFile(requireContext(), requireContext().packageName, file!!)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
