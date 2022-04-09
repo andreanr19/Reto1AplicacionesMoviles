@@ -17,9 +17,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
@@ -31,13 +29,16 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class PostFragment : Fragment() {
+class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding:FragmentPostBinding? = null
     private val binding get() = _binding!!
 
     private var rutaImagen : String? =null
     private var file : File? = null
+
+    private lateinit var arrayCities : ArrayAdapter<String>
+    private lateinit var selectedCity :String
     //Listener
     var listener : OnNewPostListener? =null
 
@@ -49,7 +50,16 @@ class PostFragment : Fragment() {
         _binding= FragmentPostBinding.inflate(inflater, container, false)
         val view = binding.root
 
+         arrayCities= ArrayAdapter<String>(requireContext(),
+            android.R.layout.simple_spinner_dropdown_item)
+
+        arrayCities.addAll(Arrays.asList("Cali", "Bogotá", "Medellín", "Palmira"))
+        binding.addLocationSpinner.onItemSelectedListener = this
+        binding.addLocationSpinner.adapter = arrayCities
+
+
         binding.postBtn.setOnClickListener {
+
             val caption = binding.captionET.text.toString()
             var nameuser : String= ""
             if(Reto1Application.prefs.getIsbeta()){
@@ -64,7 +74,8 @@ class PostFragment : Fragment() {
                 val dateText = Calendar.getInstance()
 
                 if(rutaImagen!=null){
-                    var post = Post(nameuser,rutaImagen!!, caption, dateText, "cali")
+                    var post = Post(nameuser,rutaImagen!!, caption, dateText, selectedCity)
+                    Toast.makeText(requireContext(), "The photo was successfully posted!", Toast.LENGTH_SHORT).show()
                     Reto1Application.prefs.savePosts(post)
                     it.onNewPost(post)
                 }else{
@@ -100,21 +111,29 @@ class PostFragment : Fragment() {
         return view
     }
 
+
     fun onCameraResult(result: ActivityResult){
 
         //Thumbnail
-        // val bitmap =  result.data?.extras?.get("data") as Bitmap
+         //val bitmap =  result.data?.extras?.get("data") as Bitmap
          //binding.image.setImageBitmap(bitmap)
         if(result.resultCode == RESULT_OK){
             rutaImagen= file?.path
             val bitmap = BitmapFactory.decodeFile(file?.path)
             val thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.width/4, bitmap.height/4, true)
 
-            binding.image.setImageBitmap(thumbnail)
+            binding.image.setImageBitmap(bitmap)
         }else if(result.resultCode== RESULT_CANCELED){
             Toast.makeText(requireContext(), "You didn't take any photo", Toast.LENGTH_LONG).show()
         }
     }
+
+    /*
+    fun onCameraResult(result: ActivityResult){
+        val bitmap = result.data?.extras?.get("data") as Bitmap
+        binding.image.setImageBitmap(bitmap)
+        rutaImagen = file?.path
+    }*/
     fun onGalleryResult(result: ActivityResult){
 
         if(result.resultCode==RESULT_OK){
@@ -141,5 +160,13 @@ class PostFragment : Fragment() {
             PostFragment()
 
 
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        val cityPosition = arrayCities.getItem(p2)
+        selectedCity = cityPosition!!
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 }
