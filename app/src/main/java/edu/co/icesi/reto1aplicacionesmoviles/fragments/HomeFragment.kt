@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import edu.co.icesi.reto1aplicacionesmoviles.Adapter.PostAdapter
+import edu.co.icesi.reto1aplicacionesmoviles.HomeViewModel
 import edu.co.icesi.reto1aplicacionesmoviles.Model.Post
 import edu.co.icesi.reto1aplicacionesmoviles.R
 import edu.co.icesi.reto1aplicacionesmoviles.databinding.FragmentHomeBinding
@@ -15,6 +17,8 @@ class HomeFragment : Fragment(), PostFragment.OnNewPostListener {
 
     private var _binding:FragmentHomeBinding?=null
     private val binding get() = _binding!!
+
+    private lateinit var viewModel : HomeViewModel
 
     //STATE
     private val adapter = PostAdapter()
@@ -33,9 +37,20 @@ class HomeFragment : Fragment(), PostFragment.OnNewPostListener {
         postRecycler.layoutManager = LinearLayoutManager(activity)
         postRecycler.adapter = adapter
 
+        viewModel= ViewModelProvider(this).get(HomeViewModel::class.java)
+
+        viewModel.posts.observe(viewLifecycleOwner) {
+
+            adapter.clear()
+            for (post in it) {
+
+                adapter.addPost(post)
+            }
+        }
 
         return view
     }
+
 
 
     override fun onDestroyView() {

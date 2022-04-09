@@ -30,7 +30,7 @@ class SecondActivity : AppCompatActivity() {
         searchFragment = SearchFragment.newInstance()
 
         //suscripción
-        postFragment.listener = homeFragment
+        //postFragment.listener = homeFragment
 
         showFragment(homeFragment)
 

@@ -23,6 +23,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import edu.co.icesi.reto1aplicacionesmoviles.Model.Post
 import edu.co.icesi.reto1aplicacionesmoviles.Reto1Application
+import edu.co.icesi.reto1aplicacionesmoviles.UtilDomi
 import edu.co.icesi.reto1aplicacionesmoviles.databinding.FragmentPostBinding
 import java.io.File
 import java.text.SimpleDateFormat
@@ -44,7 +45,7 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var arrayCities : ArrayAdapter<String>
     private lateinit var selectedCity :String
     //Listener
-    var listener : OnNewPostListener? =null
+   // var listener : OnNewPostListener? =null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,9 +73,18 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 nameuser = "Alfa"
             }
 
+            val dateText = Calendar.getInstance()
 
+            if(rutaImagen!=null){
+                var post = Post(nameuser,rutaImagen!!, caption, dateText, selectedCity)
+                Toast.makeText(requireContext(), "The photo was successfully posted!", Toast.LENGTH_SHORT).show()
+                Reto1Application.prefs.savePosts(post)
+                //it.onNewPost(post)
+            }else{
+                Toast.makeText(requireContext(), "Upload an image", Toast.LENGTH_SHORT).show()
+            }
             //publicación del dato
-            listener?.let {
+        /*    listener?.let {
                 val dateText = Calendar.getInstance()
 
                 if(rutaImagen!=null){
@@ -86,7 +96,7 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     Toast.makeText(requireContext(), "Upload an image", Toast.LENGTH_SHORT).show()
                 }
 
-            }
+            }*/
         }
         requestPermissions(arrayOf(Manifest.permission.CAMERA,
         Manifest.permission.READ_EXTERNAL_STORAGE),1)
@@ -132,16 +142,13 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
     }
 
-    /*
-    fun onCameraResult(result: ActivityResult){
-        val bitmap = result.data?.extras?.get("data") as Bitmap
-        binding.image.setImageBitmap(bitmap)
-        rutaImagen = file?.path
-    }*/
+
     fun onGalleryResult(result: ActivityResult){
+
 
         if(result.resultCode==RESULT_OK){
             val uriImage = result.data?.data
+            rutaImagen = UtilDomi.getPath(requireContext(), uriImage!!)
             uriImage?.let{
                 binding.image.setImageURI(uriImage)
             }
