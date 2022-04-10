@@ -1,6 +1,7 @@
 package edu.co.icesi.reto1aplicacionesmoviles.Viewholder
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.text.format.DateFormat
@@ -51,16 +52,17 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val monthNumber = DateFormat.format("MM", post.date.time) as String // 06
             val year = DateFormat.format("yyyy", post.date.time) as String // 2013
             datePostET.text = day + " " + monthString+ " " + year
-
         }
 
 
         val bitmap = BitmapFactory.decodeFile(post.image)
+        val thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.width/4, bitmap.height/4, true)
+
 
         postTextRow.text = Reto1Application.prefs.getUserById(post.userId).name
         captionPostET.text = post.caption
         cityPostET.text = post.city
-        imagePost.setImageBitmap(bitmap)
+        imagePost.setImageBitmap(thumbnail)
         profilePhotoPost.setImageBitmap(BitmapFactory.decodeFile(Reto1Application.prefs.getUserById(post.userId).image))
         username.text = Reto1Application.prefs.getUserById(post.userId).username
 

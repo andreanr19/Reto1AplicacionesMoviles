@@ -39,19 +39,25 @@ class HomeFragment : Fragment(), PostFragment.OnNewPostListener {
 
         viewModel= ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        viewModel.posts.observe(viewLifecycleOwner) {
+       viewModel.posts.observe(viewLifecycleOwner) {
 
             adapter.clear()
             for (post in it) {
 
                 adapter.addPost(post)
             }
+
         }
+
 
         return view
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        adapter.notifyDataSetChanged()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

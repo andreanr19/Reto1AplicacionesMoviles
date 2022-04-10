@@ -29,6 +29,9 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder>() {
 
     fun addPost(post:Post){
         posts.add(post)
+        posts.sortByDescending{
+            it.date
+        }
         notifyDataSetChanged()
 
     }

@@ -84,6 +84,9 @@ class Prefs(val context: Context) {
        var posts = getPosts()
         posts.add(post)
 
+        posts.sortByDescending {
+            it.date
+        }
         storage.edit().putString(SHARED_POSTS, gson.toJson(posts)).apply()
 
     }

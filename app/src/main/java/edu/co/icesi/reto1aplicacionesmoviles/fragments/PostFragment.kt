@@ -26,6 +26,9 @@ import edu.co.icesi.reto1aplicacionesmoviles.Reto1Application
 import edu.co.icesi.reto1aplicacionesmoviles.UtilDomi
 import edu.co.icesi.reto1aplicacionesmoviles.databinding.FragmentPostBinding
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -134,9 +137,26 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         if(result.resultCode==RESULT_OK){
             val uriImage = result.data?.data
-            rutaImagen = UtilDomi.getPath(requireContext(), uriImage!!)
-            uriImage?.let{
-                binding.image.setImageURI(uriImage)
+            val bitmap :  Bitmap  = MediaStore.Images.Media.getBitmap(context?.contentResolver, uriImage)
+            val thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.width/4, bitmap.height/4, true)
+            binding.image.setImageBitmap(thumbnail)
+            timestamp = UUID.randomUUID().toString()
+            file = File("${context?.getExternalFilesDir(null)}/ $timestamp")
+            this.rutaImagen = file!!.path
+            val sourcePath= UtilDomi.getPath(requireContext(), uriImage!!) //path de la galeria
+            copy(File(sourcePath), file)
+        }
+    }
+    @Throws(IOException::class)
+    fun copy(src: File?, dst: File?) {
+        FileInputStream(src).use { `in` ->
+            FileOutputStream(dst).use { out ->
+                // Transfer bytes from in to out
+                val buf = ByteArray(1024)
+                var len: Int
+                while (`in`.read(buf).also { len = it } > 0) {
+                    out.write(buf, 0, len)
+                }
             }
         }
     }
