@@ -68,19 +68,23 @@
         android:layout_below="@+id/profile_image_view_profilefragment"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="6dp"
-        android:text="Change Image"
+        android:text="Change Image from Camera"
         android:textColor="@color/colorPrimary"
         android:textSize="16dp"
         android:textStyle="bold" />
+
     <TextView
         android:id="@+id/change_image_gallery_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/change_image_text_btn"
-        android:layout_below="@id/profile_image_view_profilefragment"
-        android:layout_marginTop="6dp"
+        android:layout_below="@id/change_image_text_btn"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
-        android:text="Gallery"
+        android:layout_marginTop="10dp"
+        android:textSize="16dp"
+        android:textColor="@color/colorPrimary"
+        android:text="Change Image from Gallery"
+        android:textStyle="bold"
         >
 
     </TextView>
@@ -89,7 +93,7 @@
         android:id="@+id/full_name_profilefragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/change_image_text_btn"
+        android:layout_below="@+id/change_image_gallery_btn"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="20dp"

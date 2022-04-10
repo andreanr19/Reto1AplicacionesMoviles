@@ -121,17 +121,7 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tagpeopleTV"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_below="@id/addLocationSpinner"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="15dp"
 
-            android:layout_marginRight="15dp"
-            android:background="#eeeeee"
-            android:text="Tag people"></TextView>
 
         <Spinner
             android:id="@+id/addLocationSpinner"

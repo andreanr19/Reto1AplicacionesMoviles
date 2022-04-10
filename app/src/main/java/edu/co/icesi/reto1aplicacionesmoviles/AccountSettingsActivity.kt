@@ -120,7 +120,11 @@ class AccountSettingsActivity : AppCompatActivity() {
             user!!.name = binding.fullNameProfilefragment.text.toString()
             user!!.username = binding.usernameProfilefragment.text.toString()
             user!!.bio = binding.bioProfilefragment.text.toString()
-            user!!.image = imgPath!!
+
+            if(!imgPath.isNullOrEmpty()&&!imgPath.contentEquals(user?.image)){
+                user!!.image = imgPath!!
+            }
+
 
             prefs.updateUser(user!!)
 

@@ -27,6 +27,7 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var cityPostET: TextView = itemView.findViewById(R.id.cityPostET)
     var imagePost : ImageView = itemView.findViewById(R.id.imagePost)
     var profilePhotoPost : ImageView = itemView.findViewById(R.id.profilePhotoPost)
+    var username : TextView = itemView.findViewById(R.id.username)
 
     //State
 
@@ -44,29 +45,11 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             datePostET.text = day + " " + monthNumber + " " + year
 
         } else {
-
-/*
-            var date = post.date.time
-            val formatter = SimpleDateFormat("MMM dd yyyy")
-            val answer: String = formatter.format(date)
-            Log.e("answer",answer)*/
-
             val dayOfTheWeek = DateFormat.format("EEEE", post.date.time) as String // Thursday
-
-            Log.e(">>>",dayOfTheWeek)
             val day = DateFormat.format("dd", post.date.time) as String // 20
-            Log.e(">>>",day)
-
             val monthString = DateFormat.format("MMM", post.date.time) as String // Jun
-            Log.e(">>>",monthString)
-
             val monthNumber = DateFormat.format("MM", post.date.time) as String // 06
-            Log.e(">>>",monthNumber)
-
             val year = DateFormat.format("yyyy", post.date.time) as String // 2013
-            Log.e(">>>",year)
-
-
             datePostET.text = day + " " + monthString+ " " + year
 
         }
@@ -79,7 +62,7 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         cityPostET.text = post.city
         imagePost.setImageBitmap(bitmap)
         profilePhotoPost.setImageBitmap(BitmapFactory.decodeFile(Reto1Application.prefs.getUserById(post.userId).image))
-
+        username.text = Reto1Application.prefs.getUserById(post.userId).username
 
     }
 }
