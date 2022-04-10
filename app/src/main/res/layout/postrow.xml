@@ -1,83 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/button_black_background"
+    >
+    <RelativeLayout
+        android:id="@+id/relativeLayoutInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/postTextRow"
-        android:layout_width="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilePhotoPost"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:padding="5dp"
+            android:src="@drawable/profile" />
+
+        <TextView
+            android:id="@+id/postTextRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/profilePhotoPost"
+            android:text="username"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/cityPostET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/postTextRow"
+            android:layout_toRightOf="@id/profilePhotoPost"
+            android:layout_marginLeft="10dp"
+            android:text="location"
+            android:textStyle="normal"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            >
+
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@id/relativeLayoutInfo"
+        >
+        <ImageView
+            android:id="@+id/imagePost"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_centerInParent="true"
+            >
+        </ImageView>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutButtons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Username"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:layout_margin="10dp"
+        android:layout_below="@id/relativeLayoutPhoto">
+        <ImageButton
+            android:id="@+id/likeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/likebtn"
+            android:background="@color/white"
+            >
+        </ImageButton>
+        <ImageButton
+            android:id="@+id/commentBtn"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/commentsized"
+            android:background="@color/white"
+            android:layout_toRightOf="@id/likeBtn">
+        </ImageButton>
+        <ImageButton
+            android:id="@+id/sendBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/send_icon_sized"
+            android:background="@color/white"
+            android:layout_toRightOf="@id/commentBtn"
+            android:layout_marginLeft="5dp"
+            ></ImageButton>
+        <ImageButton
+            android:id="@+id/saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/savebtn"
+            android:background="@color/white"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            >
 
-    <ImageView
-        android:id="@+id/imagePost"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginStart="26dp"
-        android:layout_marginEnd="19dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/postTextRow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        </ImageButton>
 
-    <TextView
-        android:id="@+id/captionPostET"
-        android:layout_width="wrap_content"
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutUsername"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="157dp"
-        android:layout_marginBottom="66dp"
-        android:text="caption"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imagePost"
-        app:layout_constraintTop_toBottomOf="@+id/postTextRow" />
+        android:layout_below="@id/relativeLayoutButtons"
+        android:layout_margin="10dp"
+        >
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="username"
+            android:textStyle="bold"
+            android:textColor="@color/black">
+        </TextView>
+        <TextView
+            android:id="@+id/captionPostET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/username"
+            android:layout_marginLeft="5dp"
+            android:text="Here goes the caption..."
+            android:textColor="@color/black"
+            >
 
-    <TextView
-        android:id="@+id/datePostET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="158dp"
-        android:layout_marginBottom="36dp"
-        android:text="date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imagePost"
-        app:layout_constraintTop_toBottomOf="@+id/captionPostET" />
+        </TextView>
+        <TextView
+            android:id="@+id/datePostET"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username"
+            android:layout_marginTop="5dp"
+            android:text="date"
+            >
 
-    <TextView
-        android:id="@+id/cityPostET"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="158dp"
-        android:layout_marginBottom="9dp"
-        android:text="city"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imagePost"
-        app:layout_constraintTop_toBottomOf="@+id/datePostET" />
 
-    <ImageView
-        android:id="@+id/profilePhotoPost"
-        android:layout_width="50dp"
-        android:layout_height="63dp"
-        tools:layout_editor_absoluteX="287dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:srcCompat="@tools:sample/avatars" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </TextView>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

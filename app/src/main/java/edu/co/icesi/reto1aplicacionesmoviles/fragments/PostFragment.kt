@@ -81,20 +81,7 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }else{
                 Toast.makeText(requireContext(), "Upload an image", Toast.LENGTH_SHORT).show()
             }
-            //publicación del dato
-        /*    listener?.let {
-                val dateText = Calendar.getInstance()
 
-                if(rutaImagen!=null){
-                    var post = Post(nameuser,rutaImagen!!, caption, dateText, selectedCity)
-                    Toast.makeText(requireContext(), "The photo was successfully posted!", Toast.LENGTH_SHORT).show()
-                    Reto1Application.prefs.savePosts(post)
-                    it.onNewPost(post)
-                }else{
-                    Toast.makeText(requireContext(), "Upload an image", Toast.LENGTH_SHORT).show()
-                }
-
-            }*/
         }
         requestPermissions(arrayOf(Manifest.permission.CAMERA,
         Manifest.permission.READ_EXTERNAL_STORAGE),1)

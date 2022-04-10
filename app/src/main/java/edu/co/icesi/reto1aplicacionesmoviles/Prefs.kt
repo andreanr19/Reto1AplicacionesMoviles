@@ -19,22 +19,12 @@ class Prefs(val context: Context) {
     val SHARED_REMEMBER = "remember"
     val gson = Gson()
 
-    /*
-    val SHARED_NAME_ALFA ="nameAlfa"
-    val SHARED_NAME_BETA ="nameBeta"
-    val SHARED_USERNAME_ALFA = "usernameAlfa"
-    val SHARED_USERNAME_BETA = "usernameBeta"
-    val SHARED_BIO_ALFA = "bioAlfa"
-    val SHARED_BIO_BETA = "bioBeta"
-    val SHARED_PASSWORD = "password"
-    val SHARED_ISBETA ="isbeta"*/
-
 
     fun createUser(){
         if(storage.getString("ALFA","").toString().isEmpty()||storage.getString("BETA","").toString().isEmpty()){
 
-            val user = User(UUID.randomUUID().toString(),"Alfa","alfanunez","Hola","")
-            val user2 = User(UUID.randomUUID().toString(),"Beta","betanunez","Hola","")
+            val user = User(UUID.randomUUID().toString(),"Alfa","alfanunez","Hello, I'm Alfa","")
+            val user2 = User(UUID.randomUUID().toString(),"Beta","betanunez","Hello, I'm Beta","")
             val userString = gson.toJson(user)
             val userString2 = gson.toJson(user2)
             storage.edit().putString("ALFA", userString).apply()
@@ -89,79 +79,6 @@ class Prefs(val context: Context) {
     fun getRemember(): Boolean{
         return storage.getBoolean(SHARED_REMEMBER, false)
     }
-    /*
-    fun saveUsernameAlfa(username:String){
-        storage.edit().putString(SHARED_USERNAME_ALFA, username).apply()
-    }
-
-    fun saveNameAlfa(name:String){
-        storage.edit().putString(SHARED_NAME_ALFA, name).apply()
-    }
-    fun saveBioAlfa(bio:String){
-        storage.edit().putString(SHARED_BIO_ALFA, bio).apply()
-    }
-    fun saveBioBeta(bio:String){
-        storage.edit().putString(SHARED_BIO_BETA, bio).apply()
-    }
-
-    fun saveNameBeta(name:String){
-        storage.edit().putString(SHARED_NAME_BETA, name).apply()
-    }
-
-    fun saveUsernameBeta(username:String){
-        storage.edit().putString(SHARED_USERNAME_BETA, username).apply()
-    }
-
-    fun savePassword(password:String){
-        storage.edit().putString(SHARED_PASSWORD, password).apply()
-    }
-
-
-
-    fun saveIsbeta(isbeta:Boolean){
-        storage.edit().putBoolean(SHARED_ISBETA, isbeta).apply()
-    }
-
-    fun getUsernameAlfa():String{
-        return storage.getString(SHARED_USERNAME_ALFA, "")!!
-    }
-
-    fun getBioAlfa():String{
-        return storage.getString(SHARED_BIO_ALFA,"")!!
-    }
-    fun getBioBeta():String{
-        return storage.getString(SHARED_BIO_BETA,"")!!
-    }
-
-    fun getNameAlfa():String{
-        return storage.getString(SHARED_NAME_ALFA, "")!!
-    }
-
-    fun getNameBeta():String{
-        return storage.getString(SHARED_NAME_BETA, "")!!
-    }
-
-    fun getUsernameBeta():String{
-        return storage.getString(SHARED_USERNAME_BETA,"")!!
-    }
-
-    fun getPassword():String{
-        return storage.getString(SHARED_PASSWORD,"")!!
-    }
-
-
-
-    fun getIsbeta(): Boolean{
-        return storage.getBoolean(SHARED_ISBETA, false)
-    }
-
-    fun prefsClean(){
-        val editor : SharedPreferences.Editor = storage.edit()
-        editor.clear()
-        editor.apply()
-    }*/
-
-
 
     fun savePosts(post: Post){
        var posts = getPosts()
@@ -170,8 +87,6 @@ class Prefs(val context: Context) {
         storage.edit().putString(SHARED_POSTS, gson.toJson(posts)).apply()
 
     }
-
-
 
     fun getPosts() : MutableList<Post>{
         var postList = mutableListOf<Post>()

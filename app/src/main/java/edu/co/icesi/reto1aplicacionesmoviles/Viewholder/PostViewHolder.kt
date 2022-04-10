@@ -74,12 +74,11 @@ class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val bitmap = BitmapFactory.decodeFile(post.image)
 
-
         postTextRow.text = Reto1Application.prefs.getUserById(post.userId).name
         captionPostET.text = post.caption
         cityPostET.text = post.city
         imagePost.setImageBitmap(bitmap)
-        //profilePhotoPost.setImageBitmap(BitmapFactory.decodeFile())
+        profilePhotoPost.setImageBitmap(BitmapFactory.decodeFile(Reto1Application.prefs.getUserById(post.userId).image))
 
 
     }

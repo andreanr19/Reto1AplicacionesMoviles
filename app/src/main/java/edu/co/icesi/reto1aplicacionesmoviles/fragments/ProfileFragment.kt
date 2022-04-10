@@ -1,6 +1,7 @@
 package edu.co.icesi.reto1aplicacionesmoviles.fragments
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -41,6 +42,7 @@ class ProfileFragment : Fragment() {
 
             binding.fullNameProfilefragment.setText(prefs.getLoggedUser()?.username)
             binding.bioProfilefragment.setText(prefs.getLoggedUser()?.bio)
+            binding.profileimageProfilefragment.setImageBitmap(BitmapFactory.decodeFile(prefs.getLoggedUser()!!.image))
 
     }
 
