@@ -38,8 +38,8 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var rutaImagen : String? =null
     private var file : File? = null
-    private var timestamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-    private var FILE = "picture_" + timestamp
+    private lateinit var timestamp : String
+
 
 
     private lateinit var arrayCities : ArrayAdapter<String>
@@ -93,7 +93,8 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         binding.cameraBtn.setOnClickListener{
             val intent =Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            file = File("${context?.getExternalFilesDir(null)}/ $FILE")
+            timestamp = UUID.randomUUID().toString()
+            file = File("${context?.getExternalFilesDir(null)}/ $timestamp")
             Log.e(">>>", file?.path.toString())
             val uri = FileProvider.getUriForFile(requireContext(), requireContext().packageName, file!!)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
@@ -121,7 +122,7 @@ class PostFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val bitmap = BitmapFactory.decodeFile(file?.path)
             val thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.width/4, bitmap.height/4, true)
 
-            binding.image.setImageBitmap(bitmap)
+            binding.image.setImageBitmap(thumbnail)
         }else if(result.resultCode== RESULT_CANCELED){
             Toast.makeText(requireContext(), "You didn't take any photo", Toast.LENGTH_LONG).show()
         }
