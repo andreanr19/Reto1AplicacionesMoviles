@@ -40,6 +40,7 @@ class ProfileFragment : Fragment() {
 
     fun checkDetails(){
 
+            binding.profileFragment.setText(prefs.getLoggedUser()?.username)
             binding.fullNameProfilefragment.setText(prefs.getLoggedUser()?.username)
             binding.bioProfilefragment.setText(prefs.getLoggedUser()?.bio)
             binding.profileimageProfilefragment.setImageBitmap(BitmapFactory.decodeFile(prefs.getLoggedUser()!!.image))
